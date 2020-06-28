@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>1|了解分布式缓存 | 小郭的技术花园</title>
-<link rel="shortcut icon" href="https://Gdk666.github.io/favicon.ico?v=1593166858202">
+<link rel="shortcut icon" href="https://Gdk666.github.io/favicon.ico?v=1593358977146">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://Gdk666.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="1|了解分布式缓存 | 小郭的技术花园 - Atom Feed" href="https://Gdk666.github.io/atom.xml">
@@ -11,8 +11,9 @@
 
 
 
-    <meta name="description" content="TODO
-" />
+    <meta name="description" content="🤣为什么需要缓存？
+在实际的工作中，主要是以WEB端为主，以用户和数据为关系，每次用户的请求，服务端都要通过某一些条件去请求数据，最终将用户需要的数据响应回客户端。如果用户的等待时间超过3秒，估计就会崩溃。
+那我们就需要缓存来提高性能，改..." />
     <meta name="keywords" content="分布式缓存" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -22,7 +23,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://Gdk666.github.io">
-  <img class="avatar" src="https://Gdk666.github.io/images/avatar.png?v=1593166858202" alt="">
+  <img class="avatar" src="https://Gdk666.github.io/images/avatar.png?v=1593358977146" alt="">
   </a>
   <h1 class="site-title">
     小郭的技术花园
@@ -82,7 +83,7 @@
                 2020-06-26
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
                 <a href="https://Gdk666.github.io/tag/DRb55L5pZ/" class="post-tag">
@@ -93,25 +94,69 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>TODO</p>
+                <h3 id="为什么需要缓存">🤣为什么需要缓存？</h3>
+<pre><code>在实际的工作中，主要是以WEB端为主，以用户和数据为关系，每次用户的请求，服务端都要通过某一些条件去请求数据，最终将用户需要的数据响应回客户端。如果用户的等待时间超过3秒，估计就会崩溃。
+那我们就需要缓存来提高性能，改善用户体验。
+</code></pre>
+<h3 id="什么是缓存">😀什么是缓存？</h3>
+<pre><code>缓存：可以进行高速数据交换的存储器，缓存主要分为硬盘缓存和CPU三级缓存。
+常用的三个缓存淘汰策略：
+    1. FIFO 先进先出
+    2. LRU 最不经常用
+    3. LFU 最近最少用
+用途: 
+    1. 提高性能
+    2. 提高并发
+</code></pre>
+<h3 id="缓存使用的场景">😃缓存使用的场景</h3>
+<pre><code>    1. 列表排序分页
+    2. 数据库查询数据缓存
+    3. 热点排名
+    4. 分布式Session
+</code></pre>
+<h3 id="缓存的分类">😋缓存的分类</h3>
+<figure data-type="image" tabindex="1"><img src="https://Gdk666.github.io/post-images/1593357158065.jpg" alt="" loading="lazy"></figure>
+<h3 id="缓存的技术选型">😜缓存的技术选型</h3>
+<pre><code> 我们可以从几个方面了解缓存的技术选型
+    1. 对项目数据一致性的要求
+    2. 缓存的数据是否可控
+    3. 是否提高并发能力
+</code></pre>
+<h3 id="缓存的常见问题">😜缓存的常见问题</h3>
+<pre><code>    1. 缓存失效、穿透、雪崩问题
+    2. 缓存数据不一致如何处理
+    3. 热点Key问题
+    4. 高并发的Key回溯问题
+</code></pre>
+<p>那我们可以看看有哪些常用的缓存供我们选择<br>
+<img src="https://Gdk666.github.io/post-images/1593357339226.jpg" alt="" loading="lazy"></p>
+<p>👍我们根据缓存的知识点寻寻渐进，缓存知识点全景图（图片来源：陈波老师 的分布式缓存课）<br>
+<img src="https://Gdk666.github.io/post-images/1593357507954.png" alt="" loading="lazy"></p>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BC%93%E5%AD%98">🤣为什么需要缓存？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98">😀什么是缓存？</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8%E7%9A%84%E5%9C%BA%E6%99%AF">😃缓存使用的场景</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E7%9A%84%E5%88%86%E7%B1%BB">😋缓存的分类</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B">😜缓存的技术选型</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">😜缓存的常见问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
         </div>
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://Gdk666.github.io/post/hello-gridea/">
-              <h3 class="post-title">
-                Hello Gridea
-              </h3>
-            </a>
-          </div>
         
 
         
